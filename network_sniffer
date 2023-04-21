@@ -1,0 +1,25 @@
+"""
+Created on Fri Apr 21 15:25:44 2023
+
+@author: Noah Caulfield
+
+ Uses scapy library to sniff network packets
+ and extract information about the sites 
+ being accessed.Uses scapy to capture DNS 
+ requests and extract the domain names being
+ accessed:
+"""
+from scapy.all import *
+
+def dns_callback(packet):
+    if packet.haslayer(DNS):
+        qname = packet[DNS].qd.qname.decode('utf-8')
+        if qname not in dns_records:
+            dns_records.append(qname)
+            print(f"[+] New DNS request: {qname}")
+
+dns_records = []
+print("DNM packet sniffer started. ")
+
+# Start sniffing DNS traffic on port 53
+sniff(filter="udp port 53", prn=dns_callback)
