@@ -1,0 +1,30 @@
+'''
+@Noah Caulfield
+4/17/2023
+
+Python script that takes a screenshot of your desktop every minute and saves it locally as a PNG file
+'''
+
+import os
+import time
+from PIL import ImageGrab
+
+# Define the output directory
+output_dir = "screenshots"
+
+# Create the output directory if it doesn't exist
+if not os.path.exists(output_dir):
+    os.mkdir(output_dir)
+
+# Loop indefinitely and take a screenshot every minute
+while True:
+    # Define the output filename using the current timestamp
+    filename = time.strftime("%Y-%m-%d %H-%M-%S.png")
+    output_path = os.path.join(output_dir, filename)
+
+    # Take the screenshot and save it to the output file
+    screenshot = ImageGrab.grab()
+    screenshot.save(output_path)
+
+    # Wait for 60 seconds before taking the next screenshot
+    time.sleep(60)
