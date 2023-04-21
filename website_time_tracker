@@ -1,0 +1,24 @@
+'''
+@Noah Caulfield
+4/ 21/2023
+
+Python script that logs the time every time you change websites using the webbrowser and time modules
+'''
+
+import webbrowser
+import time
+
+# Define a function to log the time when the user changes websites
+def log_time(url):
+    with open("website_logs.txt", "a") as file:
+        timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+        file.write(f"{timestamp} - {url}\n")
+
+# Set the URLs to open in the web browser
+urls = ["https://www.google.com", "https://www.python.org", "https://www.github.com"]
+
+# Open each URL in the web browser and log the time
+for url in urls:
+    webbrowser.open(url)
+    log_time(url)
+    time.sleep(5) # wait for 5 seconds before opening the next URL
